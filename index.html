@@ -979,7 +979,21 @@ responsive:true,
 maintainAspectRatio:false
 }
 });
+function updateCharts(){
 
+const filtered = getFilteredData();
+
+if(filtered.length === 0) return;
+
+const labels = filtered.map(d => d.mes);
+const otif = filtered.map(d => d.otif);
+
+chartOTIF.data.labels = labels;
+chartOTIF.data.datasets[0].data = otif;
+
+chartOTIF.update();
+
+}
 const filtered = getFilteredData();
 
 if(filtered.length === 0) return;
