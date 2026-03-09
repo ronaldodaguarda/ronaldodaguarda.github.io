@@ -871,7 +871,48 @@ new IntersectionObserver(entries => {
     if (e.isIntersecting) { e.target.classList.add('animated'); }
   });
 }, { threshold: 0.15 }).observe(document.querySelector('.skills-container'));
+const logisticsData = [
+{mes:"Jan",regiao:"Sudeste",transportadora:"DHL",otif:98.2,lead:2.1,avarias:1.2},
+{mes:"Jan",regiao:"Sul",transportadora:"FedEx",otif:96.5,lead:2.4,avarias:1.5},
+{mes:"Jan",regiao:"Nordeste",transportadora:"Jadlog",otif:94.8,lead:3.1,avarias:2.2},
 
+{mes:"Fev",regiao:"Sudeste",transportadora:"DHL",otif:98.7,lead:2.0,avarias:1.0},
+{mes:"Fev",regiao:"Sul",transportadora:"FedEx",otif:97.2,lead:2.2,avarias:1.3},
+{mes:"Fev",regiao:"Nordeste",transportadora:"Jadlog",otif:95.1,lead:2.9,avarias:2.0},
+
+{mes:"Mar",regiao:"Sudeste",transportadora:"DHL",otif:99.0,lead:1.9,avarias:0.9},
+{mes:"Mar",regiao:"Sul",transportadora:"FedEx",otif:97.6,lead:2.1,avarias:1.2},
+{mes:"Mar",regiao:"Nordeste",transportadora:"Jadlog",otif:95.5,lead:2.7,avarias:1.9}
+];
+
+function getFilteredData(){
+
+const region = document.getElementById("filterRegion").value;
+const carrier = document.getElementById("filterCarrier").value;
+const month = document.getElementById("filterMonth").value;
+
+return logisticsData.filter(d => {
+
+return (region==="All" || d.regiao===region) &&
+       (carrier==="All" || d.transportadora===carrier) &&
+       (month==="All" || d.mes===month);
+
+});
+
+}
+
+document
+.querySelectorAll(".filters select")
+.forEach(el=>{
+
+el.addEventListener("change",()=>{
+
+console.log(getFilteredData());
+
+});
+
+});
+  
 /* ─── CHARTS ─── */
 const CYAN='rgba(56,189,248,1)', GREEN='rgba(74,222,128,1)',
       PURPLE='rgba(167,139,250,1)', AMBER='rgba(251,191,36,1)', RED='rgba(248,113,113,1)';
