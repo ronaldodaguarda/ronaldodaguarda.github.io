@@ -1,12 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Ronaldo da Guarda | Data & Logistics Analyst</title>
+<title>Ronaldo da Guarda | Data Analyst</title>
 
 <style>
 
@@ -14,32 +11,39 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
 }
 
 body{
-font-family:Segoe UI,Arial;
 background:#0f172a;
-color:white;
+color:#e2e8f0;
 line-height:1.6;
 }
 
-/* NAV */
+/* NAVBAR */
 
 nav{
-display:flex;
-justify-content:space-between;
-padding:20px 10%;
-background:#020617;
-position:sticky;
+position:fixed;
 top:0;
-z-index:100;
+width:100%;
+background:#020617;
+padding:15px;
+z-index:1000;
+box-shadow:0 2px 10px rgba(0,0,0,0.5);
+}
+
+nav ul{
+display:flex;
+justify-content:center;
+gap:40px;
+list-style:none;
 }
 
 nav a{
-color:white;
+color:#e2e8f0;
 text-decoration:none;
-margin-left:25px;
-font-size:14px;
+font-weight:600;
+transition:0.3s;
 }
 
 nav a:hover{
@@ -49,120 +53,64 @@ color:#38bdf8;
 /* HERO */
 
 .hero{
-height:80vh;
+height:100vh;
 display:flex;
 flex-direction:column;
 justify-content:center;
-padding:0 10%;
-background:linear-gradient(120deg,#0f172a,#1e293b);
+align-items:center;
+text-align:center;
+padding:20px;
 }
 
 .hero h1{
-font-size:52px;
-margin-bottom:20px;
-}
-
-.hero span{
-color:#38bdf8;
+font-size:48px;
+margin-bottom:10px;
 }
 
 .hero p{
-max-width:600px;
+font-size:20px;
 color:#94a3b8;
-font-size:18px;
 }
 
-.btn{
-display:inline-block;
-margin-top:30px;
-padding:14px 28px;
-background:#38bdf8;
-border-radius:8px;
-color:black;
-text-decoration:none;
-font-weight:bold;
-transition:0.3s;
-}
-
-.btn:hover{
-transform:scale(1.05);
-}
-
-/* SECTIONS */
+/* SEÇÕES */
 
 section{
-padding:100px 10%;
-max-width:1200px;
+padding:100px 20px;
+max-width:900px;
 margin:auto;
 }
 
 h2{
 font-size:32px;
-margin-bottom:40px;
+margin-bottom:20px;
+color:#38bdf8;
+}
+
+.card{
+background:#1e293b;
+padding:25px;
+border-radius:10px;
+margin-bottom:20px;
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
 }
 
 /* SKILLS */
 
 .skills{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:25px;
+display:flex;
+flex-wrap:wrap;
+gap:15px;
 }
 
 .skill{
-background:#1e293b;
-padding:20px;
-border-radius:10px;
-}
-
-.bar{
-height:6px;
 background:#334155;
-margin-top:10px;
-border-radius:10px;
-overflow:hidden;
-}
-
-.bar span{
-display:block;
-height:100%;
-background:#38bdf8;
-}
-
-/* EXPERIENCE */
-
-.timeline{
-border-left:3px solid #38bdf8;
-padding-left:25px;
-}
-
-.job{
-margin-bottom:35px;
-}
-
-.job span{
-color:#94a3b8;
+padding:10px 18px;
+border-radius:20px;
 font-size:14px;
-}
-
-/* PROJECTS */
-
-.projects{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:25px;
-}
-
-.project{
-background:#1e293b;
-padding:25px;
-border-radius:12px;
-transition:0.3s;
-}
-
-.project:hover{
-transform:translateY(-8px);
-box-shadow:0 10px 25px rgba(0,0,0,0.4);
 }
 
 /* FOOTER */
@@ -174,12 +122,12 @@ background:#020617;
 color:#94a3b8;
 }
 
-/* ANIMATION */
+/* ANIMAÇÃO SCROLL */
 
 .hidden{
 opacity:0;
 transform:translateY(40px);
-transition:all 0.8s;
+transition:all 1s;
 }
 
 .show{
@@ -188,169 +136,98 @@ transform:translateY(0);
 }
 
 </style>
-
 </head>
 
 <body>
 
 <nav>
+<ul>
+<li><a href="#sobre">Sobre</a></li>
+<li><a href="#skills">Skills</a></li>
+<li><a href="#experiencia">Experiência</a></li>
+<li><a href="#educacao">Educação</a></li>
+<li><a href="#contato">Contato</a></li>
+</ul>
+</nav>
 
-<h3>Ronaldo</h3>
 
-<div>
+<div class="hero">
 
-<a href="#sobre">Sobre</a>
-<a href="#skills">Skills</a>
-<a href="#experiencia">Experiência</a>
-<a href="#projetos">Projetos</a>
-<a href="#contato">Contato</a>
+<h1>Ronaldo da Guarda</h1>
+<p>Data Analyst | Power BI | SQL | Python</p>
 
 </div>
 
-</nav>
-
-<header class="hero">
-
-<h1>Transformando <span>dados</span> em performance logística</h1>
-
-<p>
-Analista de dados com experiência em logística nacional, indicadores operacionais
-e otimização de processos utilizando Power BI, Excel e SQL.
-</p>
-
-<a class="btn" href="https://www.linkedin.com/in/ronaldodaguarda" target="_blank">
-LinkedIn
-</a>
-
-</header>
 
 <section id="sobre" class="hidden">
 
-<h2>Sobre mim</h2>
+<h2>Sobre</h2>
 
-<p>
-
-Profissional com experiência em logística e análise de dados aplicada ao
-transporte de medicamentos em nível nacional.
-
-Especialista na criação de dashboards e indicadores estratégicos
-utilizando Power BI, Excel e SQL para melhorar a performance operacional
-e apoiar a tomada de decisões.
-
-</p>
+<div class="card">
+Profissional focado em análise de dados, criação de dashboards e geração de insights para tomada de decisão. Experiência com Power BI, SQL e análise de dados orientada a resultados.
+</div>
 
 </section>
+
+
 
 <section id="skills" class="hidden">
 
-<h2>Stack de Tecnologia</h2>
+<h2>Skills</h2>
 
 <div class="skills">
 
-<div class="skill">
-Power BI
-<div class="bar"><span style="width:90%"></span></div>
-</div>
-
-<div class="skill">
-SQL
-<div class="bar"><span style="width:75%"></span></div>
-</div>
-
-<div class="skill">
-Excel Avançado
-<div class="bar"><span style="width:95%"></span></div>
-</div>
-
-<div class="skill">
-Data Analytics
-<div class="bar"><span style="width:85%"></span></div>
-</div>
+<div class="skill">Power BI</div>
+<div class="skill">SQL</div>
+<div class="skill">Python</div>
+<div class="skill">Excel</div>
+<div class="skill">Data Visualization</div>
+<div class="skill">Business Intelligence</div>
 
 </div>
 
 </section>
+
+
 
 <section id="experiencia" class="hidden">
 
 <h2>Experiência</h2>
 
-<div class="timeline">
-
-<div class="job">
-
-<h3>Analista de Transporte Sênior</h3>
-
-<span>GrupoSC Distribuidora de Medicamentos • 2024 - 2025</span>
-
-<p>
-Gestão de performance logística nacional com dashboards e indicadores em Power BI
-para tomada de decisão estratégica.
-</p>
-
-</div>
-
-<div class="job">
-
-<h3>Analista de Logística</h3>
-
-<span>GrupoSC • 2023 - 2024</span>
-
-</div>
-
-<div class="job">
-
-<h3>Analista de Logística</h3>
-
-<span>Grupo Bolt • 2022 - 2023</span>
-
-</div>
-
+<div class="card">
+<h3>Analista de Dados</h3>
+<p>Responsável por análise de dados, criação de dashboards e geração de relatórios para apoio à tomada de decisão.</p>
 </div>
 
 </section>
 
-<section id="projetos" class="hidden">
 
-<h2>Projetos</h2>
 
-<div class="projects">
+<section id="educacao" class="hidden">
 
-<div class="project">
+<h2>Educação</h2>
 
-<h3>Dashboard de Performance Logística</h3>
-
-<p>
-Monitoramento de OTIF, lead time e indicadores operacionais com Power BI.
-</p>
-
-</div>
-
-<div class="project">
-
-<h3>Análise de Indicadores Operacionais</h3>
-
-<p>
-Relatórios analíticos para identificação de gargalos e melhoria de eficiência logística.
-</p>
-
-</div>
-
+<div class="card">
+<p>Graduação / Cursos na área de dados, análise e tecnologia.</p>
 </div>
 
 </section>
+
+
 
 <section id="contato" class="hidden">
 
 <h2>Contato</h2>
 
-<p>Email: ronaldo.daguarda@yahoo.com.br</p>
-
-<p>WhatsApp: +55 11 98546-3133</p>
-
-<p>LinkedIn: linkedin.com/in/ronaldodaguarda</p>
+<div class="card">
+<p>Email: seuemail@email.com</p>
+<p>LinkedIn: linkedin.com/in/seuusuario</p>
+<p>GitHub: github.com/ronaldodaguarda</p>
+</div>
 
 </section>
+
+
 
 <footer>
 
@@ -358,26 +235,26 @@ Relatórios analíticos para identificação de gargalos e melhoria de eficiênc
 
 </footer>
 
+
 <script>
 
-const observer = new IntersectionObserver(entries => {
+const observer = new IntersectionObserver((entries)=>{
 
-entries.forEach(entry => {
+entries.forEach(entry=>{
 
 if(entry.isIntersecting){
-
 entry.target.classList.add("show");
-
 }
 
 });
 
 });
 
-document.querySelectorAll(".hidden").forEach(el => observer.observe(el));
+const hiddenElements = document.querySelectorAll(".hidden");
+
+hiddenElements.forEach((el)=>observer.observe(el));
 
 </script>
 
 </body>
-
 </html>
