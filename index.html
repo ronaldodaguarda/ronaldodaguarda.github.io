@@ -43,25 +43,21 @@ body{
   position:fixed;width:10px;height:10px;
   background:var(--cyan);border-radius:50%;
   pointer-events:none;z-index:9999;
-  transition:transform 0.1s;
+  top:0;left:0;
+  will-change:transform;
   mix-blend-mode:screen;
 }
 #cursor-ring{
   position:fixed;width:36px;height:36px;
   border:1px solid rgba(56,189,248,0.4);
   border-radius:50%;pointer-events:none;z-index:9998;
-  transition:all 0.18s ease;
+  top:0;left:0;
+  will-change:transform;
+  transition:width 0.2s,height 0.2s,border-color 0.2s;
 }
 
 /* ── CANVAS BG ── */
-#canvas-bg{position:fixed;top:0;left:0;z-index:0;opacity:0.35}
-
-/* ── SCANLINE OVERLAY ── */
-body::after{
-  content:'';position:fixed;inset:0;
-  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);
-  pointer-events:none;z-index:1;
-}
+#canvas-bg{position:fixed;top:0;left:0;z-index:0;opacity:0.3;will-change:transform}
 
 /* ── LAYOUT ── */
 .page{position:relative;z-index:2}
@@ -72,7 +68,7 @@ nav{
   display:flex;align-items:center;justify-content:space-between;
   padding:16px 48px;
   background:rgba(6,8,16,0.8);
-  backdrop-filter:blur(20px);
+  backdrop-filter:blur(12px);
   border-bottom:1px solid var(--border);
 }
 .nav-logo{
@@ -590,7 +586,7 @@ footer{
 
 <!-- ── NAV ── -->
 <nav>
-  <div class="nav-logo">rdaguarda<span>.dev</span></div>
+  <div class="nav-logo">Ronaldo da Guarda<span>.dev</span></div>
   <div class="nav-links">
     <a href="#projetos">Projetos</a>
     <a href="#dashboard">Dashboard</a>
@@ -988,11 +984,11 @@ footer{
           (11) 98546-3133
         </div>
       </a>
-      <a class="contact-item" href="mailto:ronaldo.daguarda@yahoo.com.br">
+      <a class="contact-item" href="/cdn-cgi/l/email-protection#2c5e43424d40484302484d4b594d5e484d6c554d444343024f4341024e5e">
         <div class="contact-item-icon">✉️</div>
         <div>
           <div style="font-size:10px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:2px">E-mail</div>
-          ronaldo.daguarda@yahoo.com.br
+          <span class="__cf_email__" data-cfemail="cab8a5a4aba6aea5e4aeabadbfabb8aeab8ab3aba2a5a5e4a9a5a7e4a8b8">[email&#160;protected]</span>
         </div>
       </a>
       <a class="contact-item" href="https://www.linkedin.com/in/ronaldodaguarda" target="_blank">
@@ -1021,41 +1017,52 @@ footer{
   <span>© 2025</span>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ── CURSOR ── */
 const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx-5+'px';cur.style.top=my-5+'px'});
-(function anim(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx-18+'px';ring.style.top=ry-18+'px';requestAnimationFrame(anim)})();
-document.querySelectorAll('a,button,[data-hover]').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{ring.style.transform='scale(1.8)';ring.style.borderColor='rgba(56,189,248,0.6)'});
-  el.addEventListener('mouseleave',()=>{ring.style.transform='scale(1)';ring.style.borderColor='rgba(56,189,248,0.4)'});
+let mx=window.innerWidth/2,my=window.innerHeight/2,rx=mx,ry=my;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY},{passive:true});
+(function anim(){
+  rx+=(mx-rx)*0.25;ry+=(my-ry)*0.25;
+  cur.style.transform=`translate(${mx-5}px,${my-5}px)`;
+  ring.style.transform=`translate(${rx-18}px,${ry-18}px)`;
+  requestAnimationFrame(anim);
+})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ring.style.width='52px';ring.style.height='52px';ring.style.borderColor='rgba(56,189,248,0.7)';ring.style.marginTop='-8px';ring.style.marginLeft='-8px'},{passive:true});
+  el.addEventListener('mouseleave',()=>{ring.style.width='36px';ring.style.height='36px';ring.style.borderColor='rgba(56,189,248,0.4)';ring.style.marginTop='0';ring.style.marginLeft='0'},{passive:true});
 });
 
 /* ── CANVAS PARTICLES ── */
 const canvas=document.getElementById('canvas-bg');
 const ctx=canvas.getContext('2d');
 function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight}
-resize();window.addEventListener('resize',resize);
-const pts=Array.from({length:80},()=>({
+resize();window.addEventListener('resize',resize,{passive:true});
+const pts=Array.from({length:40},()=>({
   x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,
-  vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,
-  r:Math.random()*1.5+0.5
+  vx:(Math.random()-0.5)*0.25,vy:(Math.random()-0.5)*0.25,
+  r:Math.random()*1.2+0.4
 }));
+let frameSkip=0;
 function drawParticles(){
+  frameSkip++;
+  if(frameSkip%2===0){requestAnimationFrame(drawParticles);return;}
   ctx.clearRect(0,0,canvas.width,canvas.height);
-  pts.forEach(p=>{
+  for(let i=0;i<pts.length;i++){
+    const p=pts[i];
     p.x+=p.vx;p.y+=p.vy;
     if(p.x<0||p.x>canvas.width)p.vx*=-1;
     if(p.y<0||p.y>canvas.height)p.vy*=-1;
     ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fillStyle='rgba(56,189,248,0.6)';ctx.fill();
-  });
-  pts.forEach((a,i)=>pts.slice(i+1).forEach(b=>{
-    const d=Math.hypot(a.x-b.x,a.y-b.y);
-    if(d<120){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
-    ctx.strokeStyle=`rgba(56,189,248,${0.15*(1-d/120)})`;ctx.lineWidth=0.5;ctx.stroke()}
-  }));
+    ctx.fillStyle='rgba(56,189,248,0.55)';ctx.fill();
+    for(let j=i+1;j<pts.length;j++){
+      const b=pts[j],dx=p.x-b.x,dy=p.y-b.y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<90){
+        ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(b.x,b.y);
+        ctx.strokeStyle=`rgba(56,189,248,${0.12*(1-d/90)})`;ctx.lineWidth=0.5;ctx.stroke();
+      }
+    }
+  }
   requestAnimationFrame(drawParticles);
 }
 drawParticles();
@@ -1134,23 +1141,35 @@ function miniLine(id,labels,data,color){
   grad.addColorStop(0,color.replace('1)','0.3)'));
   grad.addColorStop(1,color.replace('1)','0)'));
   new Chart(ctx2,{type:'line',data:{labels,datasets:[{data,borderColor:color,backgroundColor:grad,borderWidth:2,pointRadius:0,fill:true,tension:0.4}]},
-    options:{plugins:{legend:{display:false},tooltip:{enabled:false}},scales:{x:{display:false},y:{display:false}},animation:{duration:1500},responsive:true,maintainAspectRatio:false}});
+    options:{plugins:{legend:{display:false},tooltip:{enabled:false}},scales:{x:{display:false},y:{display:false}},animation:false,responsive:true,maintainAspectRatio:false}});
 }
 
 function miniBar(id,labels,data,colors){
   const ctx2=document.getElementById(id).getContext('2d');
   new Chart(ctx2,{type:'bar',data:{labels,datasets:[{data,backgroundColor:colors,borderRadius:3,borderSkipped:false}]},
-    options:{plugins:{legend:{display:false},tooltip:{enabled:false}},scales:{x:{display:false},y:{display:false}},animation:{duration:1500},responsive:true,maintainAspectRatio:false}});
+    options:{plugins:{legend:{display:false},tooltip:{enabled:false}},scales:{x:{display:false},y:{display:false}},animation:false,responsive:true,maintainAspectRatio:false}});
 }
 
+// Lazy-render mini charts only when visible
 const mo=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
-miniLine('chart1',mo,[88,87,90,91,89,93,92,94,93,95,94,95],CYAN);
-miniLine('chart2',mo,[3.2,3.1,3.0,2.9,2.8,2.7,2.7,2.6,2.5,2.4,2.3,2.3],GREEN);
-miniLine('chart3',mo,[75,78,80,82,83,85,87,88,90,91,92,94],PURPLE);
-miniBar('chart4',mo,[12,15,10,8,11,7,9,6,8,5,7,6],
-  [RED,RED,AMBER,AMBER,AMBER,GREEN,GREEN,GREEN,GREEN,GREEN,GREEN,GREEN]);
-miniLine('chart5',mo,[4.0,4.0,3.5,3.5,3.0,3.0,2.5,2.0,2.0,1.5,1.0,1.0],AMBER);
-miniLine('chart6',mo,[82,84,85,87,86,89,90,91,92,93,95,96],PURPLE);
+const chartDefs=[
+  ()=>miniLine('chart1',mo,[88,87,90,91,89,93,92,94,93,95,94,95],CYAN),
+  ()=>miniLine('chart2',mo,[3.2,3.1,3.0,2.9,2.8,2.7,2.7,2.6,2.5,2.4,2.3,2.3],GREEN),
+  ()=>miniLine('chart3',mo,[75,78,80,82,83,85,87,88,90,91,92,94],PURPLE),
+  ()=>miniBar('chart4',mo,[12,15,10,8,11,7,9,6,8,5,7,6],[RED,RED,AMBER,AMBER,AMBER,GREEN,GREEN,GREEN,GREEN,GREEN,GREEN,GREEN]),
+  ()=>miniLine('chart5',mo,[4.0,4.0,3.5,3.5,3.0,3.0,2.5,2.0,2.0,1.5,1.0,1.0],AMBER),
+  ()=>miniLine('chart6',mo,[82,84,85,87,86,89,90,91,92,93,95,96],PURPLE),
+];
+let chartsInit=false;
+const chartObs=new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting && !chartsInit){
+    chartsInit=true;
+    chartDefs.forEach((fn,i)=>setTimeout(fn,i*60));
+    chartObs.disconnect();
+  }
+},{threshold:0.05});
+const projSection=document.getElementById('projetos');
+if(projSection)chartObs.observe(projSection);
 
 /* ── DASHBOARD CHARTS ── */
 const dashOTIF=document.getElementById('dash-otif').getContext('2d');
@@ -1175,10 +1194,4 @@ new Chart(dashReg,{type:'bar',
       {label:'Ocorrências',data:[180,210,140,190,120,95,160],backgroundColor:'rgba(248,113,113,0.7)',borderRadius:4,borderSkipped:false}
     ]},
   options:{plugins:{legend:{labels:{color:'#64748b',font:{family:'JetBrains Mono',size:11},boxWidth:12}}},
-    scales:{x:{ticks:{color:'#475569',font:{size:11,family:'JetBrains Mono'}},grid:{display:false}},
-    y:{ticks:{color:'#475569',font:{size:11,family:'JetBrains Mono'}},grid:{color:'rgba(255,255,255,0.04)'}}},
-    animation:{duration:2000},responsive:true,maintainAspectRatio:false}
-});
-</script>
-</body>
-</html>
+    scales:{x:{ticks:{color:'#475569',font:{size:11,
