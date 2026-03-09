@@ -949,97 +949,37 @@ new IntersectionObserver(entries => {
 }, { threshold:0.05 }).observe(document.getElementById('projetos'));
 
 /* Dashboard charts */
-const dOtif = document.getElementById('dash-otif').getContext('2d');
-const g1 = dOtif.createLinearGradient(0,0,0,180);
-g1.addColorStop(0,'rgba(56,189,248,0.22)'); g1.addColorStop(1,'rgba(56,189,248,0)');
 
-const chartOTIF = new Chart(dOtif,{
+window.addEventListener("load", function(){
+
+const dOtif = document.getElementById('dash-otif').getContext('2d');
+
+const g1 = dOtif.createLinearGradient(0,0,0,180);
+g1.addColorStop(0,'rgba(56,189,248,0.22)');
+g1.addColorStop(1,'rgba(56,189,248,0)');
+
+new Chart(dOtif,{
 type:'line',
 data:{
-labels:mo,
+labels:['Jan','Fev','Mar'],
 datasets:[
 {
 label:'OTIF %',
-data:[88,87,90,91,89,93,92,94,93,95,94,95],
-borderColor:CYAN,
+data:[98.2,98.7,99.0],
+borderColor:'rgba(56,189,248,1)',
 backgroundColor:g1,
 borderWidth:2.5,
-pointRadius:3,
-pointBackgroundColor:CYAN,
 fill:true,
 tension:0.4
-},
-{
-label:'Meta',
-data:Array(12).fill(92),
-borderColor:'rgba(251,191,36,0.45)',
-borderWidth:1.5,
-borderDash:[6,4],
-pointRadius:0,
-fill:false
 }
 ]
 },
 options:{
-plugins:{
-legend:{
-labels:{
-color:'#64748b',
-font:{family:'JetBrains Mono',size:11},
-boxWidth:10
-}
-}
-},
-scales:{
-x:{
-ticks:{color:'#475569',font:{size:11,family:'JetBrains Mono'}},
-grid:{color:'rgba(255,255,255,0.04)'}
-},
-y:{
-ticks:{color:'#475569',font:{size:11,family:'JetBrains Mono'},callback:v=>v+'%'},
-grid:{color:'rgba(255,255,255,0.04)'},
-min:82,
-max:100
-}
-},
-animation:{duration:1000},
 responsive:true,
 maintainAspectRatio:false
 }
 });
 
-function updateCharts(){
-
-const filtered = getFilteredData();
-
-if(filtered.length===0)return;
-
-const labels=filtered.map(d=>d.mes);
-const otif=filtered.map(d=>d.otif);
-
-chartOTIF.data.labels=labels;
-chartOTIF.data.datasets[0].data=otif;
-
-chartOTIF.update();
-
-}
-const dReg = document.getElementById('dash-regional').getContext('2d');
-new Chart(dReg, { type:'bar',
-  data:{
-    labels:['SP Capital','SP Interior','Sul','Nordeste','Centro-Oeste','Norte','RJ/ES'],
-    datasets:[
-      { label:'Entregas No Prazo', data:[12400,9800,7200,6100,4300,2800,5600], backgroundColor:'rgba(56,189,248,0.65)', borderRadius:4, borderSkipped:false },
-      { label:'Ocorrências',       data:[180,210,140,190,120,95,160],           backgroundColor:'rgba(248,113,113,0.65)', borderRadius:4, borderSkipped:false }
-    ]
-  },
-  options:{
-    plugins:{ legend:{ labels:{ color:'#64748b', font:{ family:'JetBrains Mono', size:11 }, boxWidth:10 } } },
-    scales:{
-      x:{ ticks:{ color:'#475569', font:{ size:11, family:'JetBrains Mono' } }, grid:{ display:false } },
-      y:{ ticks:{ color:'#475569', font:{ size:11, family:'JetBrains Mono' } }, grid:{ color:'rgba(255,255,255,0.04)' } }
-    },
-    animation:{ duration:1000 }, responsive:true, maintainAspectRatio:false
-  }
 });
 </script>
 </body>
