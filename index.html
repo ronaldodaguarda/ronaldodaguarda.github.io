@@ -972,33 +972,6 @@ responsive:true,
 maintainAspectRatio:false
 }
 });
-const filtered = getFilteredData();
-
-if(filtered.length === 0) return;
-
-const labels = filtered.map(d => d.mes);
-const otif = filtered.map(d => d.otif);
-
-chartOTIF.data.labels = labels;
-chartOTIF.data.datasets[0].data = otif;
-
-chartOTIF.update();
-
-}
-  data:{ labels:mo, datasets:[
-    { label:'OTIF %', data:[88,87,90,91,89,93,92,94,93,95,94,95], borderColor:CYAN, backgroundColor:g1, borderWidth:2.5, pointRadius:3, pointBackgroundColor:CYAN, fill:true, tension:0.4 },
-    { label:'Meta',   data:Array(12).fill(92), borderColor:'rgba(251,191,36,0.45)', borderWidth:1.5, borderDash:[6,4], pointRadius:0, fill:false }
-  ]},
-  options:{
-    plugins:{ legend:{ labels:{ color:'#64748b', font:{ family:'JetBrains Mono', size:11 }, boxWidth:10 } } },
-    scales:{
-      x:{ ticks:{ color:'#475569', font:{ size:11, family:'JetBrains Mono' } }, grid:{ color:'rgba(255,255,255,0.04)' } },
-      y:{ ticks:{ color:'#475569', font:{ size:11, family:'JetBrains Mono' }, callback:v=>v+'%' }, grid:{ color:'rgba(255,255,255,0.04)' }, min:82, max:100 }
-    },
-    animation:{ duration:1000 }, responsive:true, maintainAspectRatio:false
-  }
-});
-
 const dReg = document.getElementById('dash-regional').getContext('2d');
 new Chart(dReg, { type:'bar',
   data:{
