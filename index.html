@@ -887,7 +887,21 @@ const logisticsData = [
 ];
 
 function getFilteredData(){
+function updateCharts(){
 
+const data = getFilteredData();
+
+if(data.length === 0) return;
+
+const labels = data.map(d => d.mes);
+const values = data.map(d => d.otif);
+
+chartOTIF.data.labels = labels;
+chartOTIF.data.datasets[0].data = values;
+
+chartOTIF.update();
+
+}
 const region = document.getElementById("filterRegion").value;
 const carrier = document.getElementById("filterCarrier").value;
 const month = document.getElementById("filterMonth").value;
