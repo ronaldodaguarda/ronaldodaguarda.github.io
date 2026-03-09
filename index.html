@@ -951,7 +951,7 @@ new IntersectionObserver(entries => {
 const dOtif = document.getElementById('dash-otif').getContext('2d');
 const g1 = dOtif.createLinearGradient(0,0,0,180);
 g1.addColorStop(0,'rgba(56,189,248,0.22)'); g1.addColorStop(1,'rgba(56,189,248,0)');
-new Chart(dOtif, { type:'line',
+const chartOTIF = new Chart(dOtif, { type:'line',
   data:{ labels:mo, datasets:[
     { label:'OTIF %', data:[88,87,90,91,89,93,92,94,93,95,94,95], borderColor:CYAN, backgroundColor:g1, borderWidth:2.5, pointRadius:3, pointBackgroundColor:CYAN, fill:true, tension:0.4 },
     { label:'Meta',   data:Array(12).fill(92), borderColor:'rgba(251,191,36,0.45)', borderWidth:1.5, borderDash:[6,4], pointRadius:0, fill:false }
